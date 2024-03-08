@@ -189,7 +189,7 @@ describe('handleSubmit', () => {
         expect(ramenMenuDivAfter[ramenMenuDivBefore.length].src).toBe(newRamen.image);
     });
 
-    it('should attach a click listener to the new element to display its details', () => {
+    it('should attach a click listener to the new element to display its details', async () => {
         const newRamen = {
             name: 'Mat',
             restaurant: 'Test',
@@ -199,7 +199,7 @@ describe('handleSubmit', () => {
             id: 6
 
         }
-        const ramenMenuDivBefore = document.querySelectorAll('#ramen-menu img');
+        // const ramenMenuDivBefore = document.querySelectorAll('#ramen-menu img');
         const ramenForm = document.getElementById('new-ramen');
         const ramenFormName = document.querySelector("#new-ramen #new-name");
         const ramenFormRestaurant = document.querySelector("#new-ramen #new-restaurant");
@@ -217,9 +217,10 @@ describe('handleSubmit', () => {
         ramenFormComment.value = newRamen.comment;
 
         fireEvent.click(submitButton);
+        await new Promise(resolve => setTimeout(resolve, 0))
 
         const ramenMenuDivAfter = document.querySelectorAll('#ramen-menu img');
-        const img = ramenMenuDivAfter[ramenMenuDivBefore.length];
+        const img = ramenMenuDivAfter[ramenMenuDivAfter.length - 1];
         img.addEventListener('click', (event) => {
             handleClick(newRamen, event);
         });
